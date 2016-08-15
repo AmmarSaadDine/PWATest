@@ -232,9 +232,13 @@
 
   // Add feature check for Service Workers here
   if('serviceWorker' in navigator) {
-    navigator.serviceWorker
-             .register('/service-worker.js')
-             .then(function() { console.log('Service Worker Registered'); });
+     console.log('Service Worker is supported');
+   navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+     console.log(':^)', reg);
+     // TODO
+   }).catch(function(err) {
+     console.log(':^(', err);
+   });
   }
 
 })();
