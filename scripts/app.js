@@ -96,25 +96,6 @@
    *
    ****************************************************************************/
 
-  function subscribe() {
-    reg.pushManager.subscribe({userVisibleOnly: true}).
-    then(function(pushSubscription){
-      sub = pushSubscription;
-      console.log('Subscribed! Endpoint:', sub.endpoint);
-      subscribeButton.textContent = 'Unsubscribe';
-      isSubscribed = true;
-    });
-  }
-  function unsubscribe() {
-    sub.unsubscribe().then(function(event) {
-      subscribeButton.textContent = 'Subscribe';
-      console.log('Unsubscribed!', event);
-      isSubscribed = false;
-    }).catch(function(error) {
-      console.log('Error unsubscribing', error);
-      subscribeButton.textContent = 'Subscribe';
-    });
-  }
   // Toggles the visibility of the add new city dialog.
   app.toggleAddDialog = function(visible) {
     if (visible) {
@@ -276,4 +257,23 @@
     });
   }
 
+  function subscribe() {
+    reg.pushManager.subscribe({userVisibleOnly: true}).
+    then(function(pushSubscription){
+      sub = pushSubscription;
+      console.log('Subscribed! Endpoint:', sub.endpoint);
+      subscribeButton.textContent = 'Unsubscribe';
+      isSubscribed = true;
+    });
+  }
+  function unsubscribe() {
+    sub.unsubscribe().then(function(event) {
+      subscribeButton.textContent = 'Subscribe';
+      console.log('Unsubscribed!', event);
+      isSubscribed = false;
+    }).catch(function(error) {
+      console.log('Error unsubscribing', error);
+      subscribeButton.textContent = 'Subscribe';
+    });
+  }
 })();
