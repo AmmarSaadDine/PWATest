@@ -45,7 +45,7 @@
   var reg;
   var sub;
   var isSubscribed = false;
-  var subscribeButton = document.querySelector('butSubscribe');
+  var subscribeButton = document.getElementById('butSubscribe');
 
   /*****************************************************************************
    *
