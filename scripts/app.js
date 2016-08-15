@@ -42,6 +42,10 @@
     daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   };
 
+  var reg;
+  var sub;
+  var isSubscribed = false;
+  var subscribeButton = document.querySelector('butSubscribe');
 
   /*****************************************************************************
    *
@@ -57,6 +61,15 @@
   document.getElementById('butAdd').addEventListener('click', function() {
     // Open/show the add new city dialog
     app.toggleAddDialog(true);
+  });
+
+  document.getElementById('butSubscribe').addEventListener('click', function() {
+    // Open/show the add new city dialog
+    if (isSubscribed) {
+      unsubscribe();
+    } else {
+      subscribe();
+    }
   });
 
   document.getElementById('butAddCity').addEventListener('click', function() {
@@ -83,6 +96,25 @@
    *
    ****************************************************************************/
 
+  function subscribe() {
+    reg.pushManager.subscribe({userVisibleOnly: true}).
+    then(function(pushSubscription){
+      sub = pushSubscription;
+      console.log('Subscribed! Endpoint:', sub.endpoint);
+      subscribeButton.textContent = 'Unsubscribe';
+      isSubscribed = true;
+    });
+  }
+  function unsubscribe() {
+    sub.unsubscribe().then(function(event) {
+      subscribeButton.textContent = 'Subscribe';
+      console.log('Unsubscribed!', event);
+      isSubscribed = false;
+    }).catch(function(error) {
+      console.log('Error unsubscribing', error);
+      subscribeButton.textContent = 'Subscribe';
+    });
+  }
   // Toggles the visibility of the add new city dialog.
   app.toggleAddDialog = function(visible) {
     if (visible) {
@@ -232,17 +264,16 @@
 
   // Add feature check for Service Workers here
   if('serviceWorker' in navigator) {
-     console.log('Service Worker is supported');
-   navigator.serviceWorker.register('service-worker.js').then(function(reg) {
-     console.log(':^)', reg);
-     reg.pushManager.subscribe({
-            userVisibleOnly: true
-        }).then(function(sub) {
-            console.log('endpoint:', sub.endpoint);
-        });
-   }).catch(function(err) {
-     console.log(':^(', err);
-   });
+    console.log('Service Worker is supported');
+    navigator.serviceWorker.register('sw.js').then(function() {
+      return navigator.serviceWorker.ready;
+    }).then(function(serviceWorkerRegistration) {
+      reg = serviceWorkerRegistration;
+      subscribeButton.disabled = false;
+      console.log('Service Worker is ready :^)', reg);
+    }).catch(function(error) {
+      console.log('Service Worker Error :^(', error);
+    });
   }
 
 })();
