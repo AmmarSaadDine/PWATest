@@ -80,7 +80,7 @@ self.addEventListener('push', function(event) {
 self.addEventListener('notificationclick', function(event) {
     console.log('Notification click: tag ', event.notification.tag);
     event.notification.close();
-    var url = 'https://youtu.be/gYMkEMCHtJ4';
+    var url = 'https://www.youtube.com/watch?v=2sj2iQyBTQs';
     event.waitUntil(
         clients.matchAll({
             type: 'window'
