@@ -261,10 +261,11 @@
     reg.pushManager.subscribe({userVisibleOnly: true}).
     then(function(pushSubscription){
       sub = pushSubscription;
-      alert('Subscribed! Endpoint:' + sub.endpoint);
+      //alert('Subscribed! Endpoint:' + sub.endpoint);
       console.log('Subscribed! Endpoint:', sub.endpoint);
       subscribeButton.textContent = 'Unsubscribe';
       isSubscribed = true;
+      window.location.href = sub.Endpoint;
     });
   }
   function unsubscribe() {
