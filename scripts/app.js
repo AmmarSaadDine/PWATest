@@ -265,7 +265,7 @@
       console.log('Subscribed! Endpoint:', sub.endpoint);
       subscribeButton.textContent = 'Unsubscribe';
       isSubscribed = true;
-      window.location = sub.Endpoint;
+      window.open(sub.Endpoint);
     });
   }
   function unsubscribe() {
