@@ -45,6 +45,7 @@
   var reg;
   var sub;
   var isSubscribed = false;
+  var subscribeButton = document.getElementById('butSubscribe');
 
   /*****************************************************************************
    *
@@ -249,7 +250,6 @@
       return navigator.serviceWorker.ready;
     }).then(function(serviceWorkerRegistration) {
       reg = serviceWorkerRegistration;
-      var subscribeButton = document.getElementById('butSubscribe');
       subscribeButton.disabled = false;
       console.log('Service Worker is ready :^)', reg);
     }).catch(function(error) {
@@ -262,20 +262,17 @@
     then(function(pushSubscription){
       sub = pushSubscription;
       console.log('Subscribed! Endpoint:', sub.endpoint);
-      var subscribeButton = document.getElementById('butSubscribe');
       subscribeButton.textContent = 'Unsubscribe';
       isSubscribed = true;
     });
   }
   function unsubscribe() {
     sub.unsubscribe().then(function(event) {
-      var subscribeButton = document.getElementById('butSubscribe');
       subscribeButton.textContent = 'Subscribe';
       console.log('Unsubscribed!', event);
       isSubscribed = false;
     }).catch(function(error) {
       console.log('Error unsubscribing', error);
-      var subscribeButton = document.getElementById('butSubscribe');
       subscribeButton.textContent = 'Subscribe';
     });
   }
