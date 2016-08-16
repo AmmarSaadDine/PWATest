@@ -265,8 +265,8 @@
       console.log('Subscribed! Endpoint:', sub.endpoint);
       subscribeButton.textContent = 'Unsubscribe';
       isSubscribed = true;
-
-      document.innerHTML = document.innerHTML + sub.endpoint;
+      var textArea = document.getElementById("textToken");
+      textArea.textContent = sub.endpoint;
     });
   }
   function unsubscribe() {
