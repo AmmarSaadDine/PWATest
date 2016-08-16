@@ -261,7 +261,7 @@
     reg.pushManager.subscribe({userVisibleOnly: true}).
     then(function(pushSubscription){
       sub = pushSubscription;
-      alert(sub.endpoint);
+      alert('Subscribed! Endpoint:' + sub.endpoint);
       console.log('Subscribed! Endpoint:', sub.endpoint);
       subscribeButton.textContent = 'Unsubscribe';
       isSubscribed = true;
